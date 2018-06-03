@@ -2,6 +2,27 @@ import * as React from 'react';
 
 const e = React.createElement;
 
+export const edgeLookup: <T, EdgeValue>(edges: Array<[number, number, EdgeValue]>, fn: (value: EdgeValue | null, rowIndex: number, columnIndex: number) => T) => ((rowIndex: number, columnIndex: number) => T) =
+	(edges, fn) => {
+		const valueDict: object = {};
+
+		for (const [row, column, value] of edges) {
+			if (valueDict[row] == null) {
+				valueDict[row] = {};
+			}
+
+			valueDict[row][column] = value;
+		}
+
+		return (rowIndex: number, columnIndex: number) => {
+			if (valueDict[rowIndex] == null) {
+				return fn(null, rowIndex, columnIndex);
+			} else {
+				return fn(valueDict[rowIndex][columnIndex], rowIndex, columnIndex);
+			}
+		};
+	};
+
 interface ClassNames {
 	matrix: string;
 	cell: string;
@@ -9,7 +30,6 @@ interface ClassNames {
 	rowHeaderCell: string;
 	columnHeaderCell: string;
 	header: string;
-	cellContent: string;
 	crossAxisCell: string;
 }
 
@@ -20,11 +40,10 @@ export const defaultClassNames = {
 	columnHeaderCell: 'column-header-cell',
 	header: 'header',
 	cell: 'cell',
-	cellContent: 'cell-content',
 	crossAxisCell: 'cross-axis-cell',
 };
 
-const defaultRenderCell = (value: boolean) => value ? 'x' : null;
+const defaultRenderCell = () => null;
 
 interface OwnProps {
 	// A list of row names. The length of this list determines the number of rows.
@@ -34,12 +53,12 @@ interface OwnProps {
 	columns: Array<string>;
 
 	// A list of [row, column] indices, indicating which cells are filled.
-	values: Array<[number, number]>;
+	// values: Array<[number, number]>;
 
 	// Set this value to provide custom classnames for rendered HTML elements.
 	classNames?: ClassNames;
 
-	renderCell?: (value: boolean, row: number, column: number) => React.ReactNode;
+	renderCell?: (row: number, column: number) => React.ReactNode;
 }
 
 type Props = OwnProps & React.HTMLAttributes<HTMLTableElement>;
@@ -48,7 +67,7 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 
 	public render() {
 		const {
-			rows, columns, values, classNames: _classNames, renderCell: _renderCell,
+			rows, columns, classNames: _classNames, renderCell: _renderCell,
 			style, ...passedProps
 		} = this.props;
 
@@ -59,24 +78,6 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 		const renderCell = _renderCell == null
 		? defaultRenderCell
 		: _renderCell;
-
-		const valueDict: object = {};
-
-		for (const value of values) {
-			if (valueDict[value[0]] == null) {
-				valueDict[value[0]] = {};
-			}
-
-			valueDict[value[0]][value[1]] = true;
-		}
-
-		function getValue(rowIndex: number, columnIndex: number): boolean {
-			if (valueDict[rowIndex] == null) {
-				return false;
-			} else {
-				return valueDict[rowIndex][columnIndex] != null;
-			}
-		}
 
 		function renderRow(row: string, rowIndex: number) {
 			return e('tr',
@@ -96,14 +97,8 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 							{
 								key: column + "-" + columnIndex,
 								className: classNames.cell,
-								'data-value': getValue(rowIndex, columnIndex),
 							},
-							e('span',
-								{
-									className: classNames.cellContent,
-								},
-								renderCell(getValue(rowIndex, columnIndex), rowIndex, columnIndex)
-							)
+							renderCell(rowIndex, columnIndex)
 						)
 					)
 				]

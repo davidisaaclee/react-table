@@ -38,19 +38,6 @@
 	box-sizing: border-box;
 }
 
-.styled-cell[data-value="true"] > .styled-cell-content {
-	display: none;
-}
-
-.styled-cell[data-value="true"]::after {
-	content: '';
-	background-color: black;
-	display: block;
-	margin: 0 auto;
-	height: 20px;
-	width: 20px;
-}
-
 .styled-header {
 	font-family: sans-serif;
 	font-weight: normal;
