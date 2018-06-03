@@ -79,7 +79,6 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 				e('div',
 					{
 						style: {
-							width: '100%',
 							transform: 'rotate(180deg)',
 							writingMode: 'vertical-rl',
 							whiteSpace: 'nowrap'
