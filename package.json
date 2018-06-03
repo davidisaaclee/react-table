@@ -1,4 +1,18 @@
 {
+  "name": "@davidisaaclee/react-routing-matrix",
+  "version": "1.0.0",
+  "main": "dist/RoutingMatrix.js",
+  "types": "dist/RoutingMatrix.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "preprocess": "npm run build",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.6",
     "@storybook/react": "^4.0.0-alpha.8",
@@ -14,19 +28,5 @@
   "peerDependencies": {
     "@types/react": "^16.3.16",
     "react": "^16.4.0"
-  },
-  "name": "react-routing-matrix",
-  "version": "1.0.0",
-  "main": "dist/RoutingMatrix.js",
-  "types": "dist/RoutingMatrix.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "preprocess": "npm run build",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  }
 }
