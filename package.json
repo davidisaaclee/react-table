@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "main": "dist/RoutingMatrix.js",
   "types": "dist/RoutingMatrix.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
+		"clean": "rimraf dist",
     "build": "tsc",
     "preprocess": "npm run build",
     "storybook": "start-storybook -p 9001 -c .storybook",
@@ -23,6 +28,7 @@
     "babel-core": "^6.26.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "rimraf": "^2.6.2",
     "typescript": "^2.9.1"
   },
   "peerDependencies": {
