@@ -2,26 +2,28 @@ import * as React from 'react';
 
 const e = React.createElement;
 
-export const edgeLookup: <T, EdgeValue>(edges: Array<[number, number, EdgeValue]>, fn: (value: EdgeValue | null, rowIndex: number, columnIndex: number) => T) => ((rowIndex: number, columnIndex: number) => T) =
-	(edges, fn) => {
-		const valueDict: object = {};
+export function edgeLookup<T, EdgeValue>(
+	edges: Array<[number, number, EdgeValue]>,
+	fn: (value: EdgeValue | null, rowIndex: number, columnIndex: number) => T
+): ((rowIndex: number, columnIndex: number) => T) {
+	const valueDict: { [row: number]: { [column: number]: EdgeValue } } = {};
 
-		for (const [row, column, value] of edges) {
-			if (valueDict[row] == null) {
-				valueDict[row] = {};
-			}
-
-			valueDict[row][column] = value;
+	for (const [row, column, value] of edges) {
+		if (valueDict[row] == null) {
+			valueDict[row] = {};
 		}
 
-		return (rowIndex: number, columnIndex: number) => {
-			if (valueDict[rowIndex] == null) {
-				return fn(null, rowIndex, columnIndex);
-			} else {
-				return fn(valueDict[rowIndex][columnIndex], rowIndex, columnIndex);
-			}
-		};
+		valueDict[row][column] = value;
+	}
+
+	return (rowIndex: number, columnIndex: number) => {
+		if (valueDict[rowIndex] == null) {
+			return fn(null, rowIndex, columnIndex);
+		} else {
+			return fn(valueDict[rowIndex][columnIndex], rowIndex, columnIndex);
+		}
 	};
+};
 
 interface ClassNames {
 	matrix: string;
@@ -63,7 +65,7 @@ interface OwnProps {
 
 type Props = OwnProps & React.HTMLAttributes<HTMLTableElement>;
 
-export class RoutingMatrix extends React.Component<Props, {}> {
+export class RoutingMatrix extends React.Component<Props, any> {
 
 	public render() {
 		const {
