@@ -94,6 +94,7 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 							{
 								key: column + "-" + columnIndex,
 								className: classNames.cell,
+								'data-value': getValue(rowIndex, columnIndex),
 							},
 							renderCell(rowIndex, columnIndex))
 					)
@@ -118,9 +119,8 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 			e('span',
 				{
 					className: classNames.cellContent,
-					'data-value': getValue(rowIndex, columnIndex),
 				},
-				getValue(rowIndex, columnIndex) ? '•' : null);
+				getValue(rowIndex, columnIndex) ? 'x' : null);
 
 		return e('table',
 			{
