@@ -1,0 +1,58 @@
+.styled-routing-matrix {
+	background-color: #eee;
+	border-collapse: collapse;
+}
+
+.styled-row:nth-child(even) {
+	background-color: #ddd;
+}
+
+.styled-row {
+	height: 30px;
+}
+
+.styled-row-header-cell {
+	text-align: right;
+	border: 1px solid black;
+	border-left: none;
+	padding-right: 0.5em;
+}
+
+.styled-column-header-cell {
+	border: 1px solid black;
+	border-top: none;
+	padding-bottom: 0.5em;
+}
+
+.styled-column-header-cell > * {
+	transform: rotate(180deg);
+	writing-mode: vertical-rl;
+	white-space: nowrap;
+	margin: 0 auto;
+}
+
+.styled-cell {
+	border: 1px solid black;
+	width: 30px;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.styled-cell-content[data-value="true"] {
+	background-color: black;
+	display: block;
+	margin: 0 auto;
+	height: 20px;
+	width: 20px;
+}
+
+.styled-header {
+	font-family: sans-serif;
+	font-weight: normal;
+	font-size: 10px;
+}
+
+.styled-cross-axis-cell {
+}
+
+

@@ -8,6 +8,7 @@ interface ClassNames {
 	row: string;
 	rowHeaderCell: string;
 	columnHeaderCell: string;
+	header: string;
 	cellContent: string;
 	crossAxisCell: string;
 }
@@ -17,6 +18,7 @@ export const defaultClassNames = {
 	row: 'row',
 	rowHeaderCell: 'row-header-cell',
 	columnHeaderCell: 'column-header-cell',
+	header: 'header',
 	cell: 'cell',
 	cellContent: 'cell-content',
 	crossAxisCell: 'cross-axis-cell',
@@ -84,13 +86,7 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 					e('th',
 						{
 							key: 'row-header-' + row + '-' + rowIndex,
-							className: classNames.rowHeaderCell,
-							style: {
-								textAlign: 'right',
-								border: '1px solid black',
-								borderLeft: 'none',
-								paddingRight: '0.5em',
-							}
+							className: [classNames.header, classNames.rowHeaderCell].join(' '),
 						},
 						row),
 					columns.map((column, columnIndex) =>
@@ -98,9 +94,6 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 							{
 								key: column + "-" + columnIndex,
 								className: classNames.cell,
-								style: {
-									border: '1px solid black',
-								}
 							},
 							renderCell(rowIndex, columnIndex))
 					)
@@ -112,21 +105,10 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 			return e('th',
 				{
 					key: 'col-header-' + column + '-' + columnIndex,
-					className: classNames.columnHeaderCell,
-					style: {
-						border: '1px solid black',
-						borderTop: 'none',
-						paddingBottom: '0.5em',
-					}
+					className: [classNames.header, classNames.columnHeaderCell].join(' '),
 				},
 				e('div',
-					{
-						style: {
-							transform: 'rotate(180deg)',
-							writingMode: 'vertical-rl',
-							whiteSpace: 'nowrap'
-						}
-					},
+					{},
 					column
 				)
 			)
@@ -143,10 +125,7 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 		return e('table',
 			{
 				className: classNames.matrix,
-				style: {
-					borderCollapse: 'collapse',
-					...style
-				},
+				style,
 				...passedProps
 			},
 			e('tbody',
