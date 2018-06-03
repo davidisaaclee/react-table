@@ -30,4 +30,15 @@ storiesOf('RoutingMatrix', module)
 					crossAxisCell: 'styled-cross-axis-cell',
 				}
 			}))
+	.add('custom cell rendering', () => 
+		e(RoutingMatrix,
+			{
+				rows: ['oscillator', 'delay', 'low-pass filter'],
+				columns: ['osc output', 'something else', 'something else', 'something else'],
+				values: [[0, 0], [0, 1], [2, 0], [2, 3]],
+				renderCell: (value: boolean, row: number, column: number) =>
+				e('span',
+					{},
+					`(${row}, ${column}): ${value}`)
+			}))
 

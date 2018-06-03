@@ -24,6 +24,8 @@ export const defaultClassNames = {
 	crossAxisCell: 'cross-axis-cell',
 };
 
+const defaultRenderCell = (value: boolean) => value ? 'x' : null;
+
 interface OwnProps {
 	// A list of row names. The length of this list determines the number of rows.
 	rows: Array<string>;
@@ -36,27 +38,27 @@ interface OwnProps {
 
 	// Set this value to provide custom classnames for rendered HTML elements.
 	classNames?: ClassNames;
+
+	renderCell?: (value: boolean, row: number, column: number) => React.ReactNode;
 }
 
 type Props = OwnProps & React.HTMLAttributes<HTMLTableElement>;
 
 export class RoutingMatrix extends React.Component<Props, {}> {
-	public static defaultProps: OwnProps = {
-		rows: [],
-		columns: [],
-		values: [],
-		classNames: defaultClassNames,
-	};
 
 	public render() {
 		const {
-			rows, columns, values, classNames: _classNames,
+			rows, columns, values, classNames: _classNames, renderCell: _renderCell,
 			style, ...passedProps
 		} = this.props;
 
 		const classNames = _classNames == null
 		? defaultClassNames
 		: _classNames;
+
+		const renderCell = _renderCell == null
+		? defaultRenderCell
+		: _renderCell;
 
 		const valueDict: object = {};
 
@@ -96,7 +98,13 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 								className: classNames.cell,
 								'data-value': getValue(rowIndex, columnIndex),
 							},
-							renderCell(rowIndex, columnIndex))
+							e('span',
+								{
+									className: classNames.cellContent,
+								},
+								renderCell(getValue(rowIndex, columnIndex), rowIndex, columnIndex)
+							)
+						)
 					)
 				]
 			)
@@ -114,13 +122,6 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 				)
 			)
 		}
-
-		const renderCell = (rowIndex: number, columnIndex: number) =>
-			e('span',
-				{
-					className: classNames.cellContent,
-				},
-				getValue(rowIndex, columnIndex) ? 'x' : null);
 
 		return e('table',
 			{
