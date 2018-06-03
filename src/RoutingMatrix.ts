@@ -7,7 +7,7 @@ interface OwnProps {
 	columns: Array<string>;
 
 	// TODO: referring to values of columns/rows makes these ambiguous
-	values: Array<[string, string]>;
+	values: Array<[number, number]>;
 }
 
 type Props = OwnProps & React.HTMLAttributes<HTMLTableElement>;
@@ -29,11 +29,11 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 			valueDict[value[0]][value[1]] = true;
 		}
 
-		function getValue(row: string, column: string): boolean {
-			if (valueDict[row] == null) {
+		function getValue(rowIndex: number, columnIndex: number): boolean {
+			if (valueDict[rowIndex] == null) {
 				return false;
 			} else {
-				return valueDict[row][column] != null;
+				return valueDict[rowIndex][columnIndex] != null;
 			}
 		}
 
@@ -60,7 +60,7 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 									border: '1px solid black',
 								}
 							},
-							renderCell(row, column))
+							renderCell(rowIndex, columnIndex))
 					)
 				]
 			)
@@ -89,8 +89,8 @@ export class RoutingMatrix extends React.Component<Props, {}> {
 			)
 		}
 
-		function renderCell(row: string, column: string) {
-			return getValue(row, column) ? '*' : null;
+		function renderCell(rowIndex: number, columnIndex: number) {
+			return getValue(rowIndex, columnIndex) ? '*' : null;
 		}
 
 		return e('table',

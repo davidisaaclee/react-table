@@ -10,5 +10,5 @@ storiesOf('RoutingMatrix', module)
 			{
 				rows: ['oscillator', 'delay', 'low-pass filter'],
 				columns: ['osc output', 'something else', 'something else', 'something else'],
-				values: [['oscillator', 'osc output'], ['oscillator', 'something else'], ['low-pass filter', 'something else'], ['low-pass filter', 'osc output']]
+				values: [[0, 0], [0, 1], [2, 0], [2, 3]]
 			}))
