@@ -54,9 +54,6 @@ interface OwnProps {
 	// A list of column names. The length of this list determines the number of columns.
 	columns: Array<string>;
 
-	// A list of [row, column] indices, indicating which cells are filled.
-	// values: Array<[number, number]>;
-
 	// Set this value to provide custom classnames for rendered HTML elements.
 	classNames?: ClassNames;
 
