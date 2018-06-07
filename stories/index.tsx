@@ -1,26 +1,51 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { RoutingMatrix, edgeLookup } from '../src/RoutingMatrix';
+import { Table, edgeLookup } from '../src/Table';
 import { action } from '@storybook/addon-actions';
 import './index.css';
 
 const e = React.createElement;
 
-storiesOf('RoutingMatrix', module)
-	.add('basic', () => 
-		e(RoutingMatrix,
+function defaultRenderHeader(
+	titles: string[],
+	index: number
+): React.ReactNode {
+	return e('div', {}, titles[index]);
+}
+
+storiesOf('Table', module)
+	.add('basic', () => {
+		const rows =
+			['oscillator', 'delay', 'low-pass filter'];
+		const columns =
+			['osc output', 'something else',
+				'something else', 'something else'];
+		return e(Table,
 			{
-				rows: ['oscillator', 'delay', 'low-pass filter'],
-				columns: ['osc output', 'something else', 'something else', 'something else'],
+				rowCount: rows.length,
+				columnCount: columns.length,
+				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
+				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
 				renderCell: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
 					(value) => value ? 'x' : null)
-			}))
-	.add('styled', () => 
-		e(RoutingMatrix,
+			})
+	})
+	.add('styled', () => {
+		const rows =
+			['Oscillator', 'Delay', 'Low-pass filter'];
+		const columns =
+			['Osc output', 'Something else',
+			'Something else', 'Something else'];
+
+		return e(Table,
 			{
-				rows: ['Oscillator', 'Delay', 'Low-pass filter'],
-				columns: ['Osc output', 'Something else', 'Something else', 'Something else'],
+				rowCount: rows.length,
+				columnCount: columns.length,
+
+				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
+				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
+
 				renderCell: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
 					(value) => e('span',
@@ -52,12 +77,20 @@ storiesOf('RoutingMatrix', module)
 					cell: 'styled-cell',
 					crossAxisCell: 'styled-cross-axis-cell',
 				}
-			}))
-	.add('interactive cells', () => 
-		e(RoutingMatrix,
+			});
+	})
+	.add('interactive cells', () => {
+		const rows = ['Oscillator', 'Delay', 'Low-pass filter'];
+		const columns = ['Osc output', 'Something else', 'Something else', 'Something else'];
+
+		return e(Table,
 			{
-				rows: ['Oscillator', 'Delay', 'Low-pass filter'],
-				columns: ['Osc output', 'Something else', 'Something else', 'Something else'],
+				rowCount: rows.length,
+				columnCount: columns.length,
+
+				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
+				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
+
 				renderCell: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
 					(value, rowIndex, columnIndex) => e('span',
@@ -90,5 +123,6 @@ storiesOf('RoutingMatrix', module)
 					cell: 'styled-cell',
 					crossAxisCell: 'styled-cross-axis-cell',
 				}
-			}))
+			});
+	})
 

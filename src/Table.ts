@@ -48,14 +48,14 @@ export const defaultClassNames = {
 const defaultRenderCell = () => null;
 
 export interface OwnProps {
-	// A list of row names. The length of this list determines the number of rows.
-	rows: Array<string>;
-
-	// A list of column names. The length of this list determines the number of columns.
-	columns: Array<string>;
-
 	// Set this value to provide custom classnames for rendered HTML elements.
 	classNames?: ClassNames;
+
+	rowCount: number;
+	columnCount: number;
+
+	renderRowHeader: (rowIndex: number) => React.ReactNode;
+	renderColumnHeader: (columnIndex: number) => React.ReactNode;
 
 	renderCell?: (row: number, column: number) => React.ReactNode;
 }
@@ -66,7 +66,8 @@ export class Table extends React.Component<Props, any> {
 
 	public render() {
 		const {
-			rows, columns, classNames: _classNames, renderCell: _renderCell,
+			rowCount, columnCount, classNames: _classNames,
+			renderCell: _renderCell, renderRowHeader, renderColumnHeader,
 			style, ...passedProps
 		} = this.props;
 
@@ -78,23 +79,23 @@ export class Table extends React.Component<Props, any> {
 		? defaultRenderCell
 		: _renderCell;
 
-		function renderRow(row: string, rowIndex: number) {
+		function renderRow(rowIndex: number) {
 			return e('tr',
 				{
-					key: row + "-" + rowIndex,
+					key: "row-" + rowIndex,
 					className: classNames.row,
 				},
 				[
 					e('th',
 						{
-							key: 'row-header-' + row + '-' + rowIndex,
+							key: 'row-header-' + rowIndex,
 							className: [classNames.header, classNames.rowHeaderCell].join(' '),
 						},
-						row),
-					columns.map((column, columnIndex) =>
+						renderRowHeader(rowIndex)),
+					range(0, columnCount).map(columnIndex =>
 						e('td',
 							{
-								key: column + "-" + columnIndex,
+								key: "column-" + columnIndex,
 								className: classNames.cell,
 							},
 							renderCell(rowIndex, columnIndex)
@@ -104,17 +105,13 @@ export class Table extends React.Component<Props, any> {
 			)
 		}
 
-		function renderColumnHeader(column: string, columnIndex: number) {
+		function renderColumnHeaderContainer(columnIndex: number) {
 			return e('th',
 				{
-					key: 'col-header-' + column + '-' + columnIndex,
+					key: 'col-header-' + columnIndex,
 					className: [classNames.header, classNames.columnHeaderCell].join(' '),
 				},
-				e('div',
-					{},
-					column
-				)
-			)
+				renderColumnHeader(columnIndex))
 		}
 
 		return e('table',
@@ -138,13 +135,21 @@ export class Table extends React.Component<Props, any> {
 									className: classNames.crossAxisCell,
 								},
 								null),
-							...columns.map(renderColumnHeader)
+							...range(0, columnCount).map(renderColumnHeaderContainer)
 						]
 					),
-					...rows.map(renderRow)
+					...range(0, rowCount).map(renderRow)
 				]
 			)
 		);
 	}
+}
+
+function range(low: number, high: number, step: number = 1): number[] {
+	let result = [];
+	for (let i = low; i < high; i += step) {
+		result.push(i);
+	}
+	return result;
 }
 
