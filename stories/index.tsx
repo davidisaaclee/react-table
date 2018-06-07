@@ -125,4 +125,56 @@ storiesOf('Table', module)
 				}
 			});
 	})
+	.add('interactive headers', () => {
+		const rows = ['Oscillator', 'Delay', 'Low-pass filter'];
+		const columns = ['Osc output', 'Something else', 'Something else', 'Something else'];
+
+		return e(Table,
+			{
+				rowCount: rows.length,
+				columnCount: columns.length,
+
+				renderRowHeader: (i: number) => (
+					e('button',
+						{
+							onClick: action(`clicked row ${rows[i]}`),
+						},
+						rows[i])
+				),
+				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
+
+				renderCell: edgeLookup(
+					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
+					(value, rowIndex, columnIndex) => e('span',
+						{
+							onClick: action(`Toggle ${rowIndex} ${columnIndex}`),
+							style: value
+							? {
+								backgroundColor: 'black',
+								display: 'block',
+								margin: '0 auto',
+								height: '20px',
+								width: '20px',
+							}
+							: {
+								display: 'block',
+								margin: '0 auto',
+								height: '20px',
+								width: '20px',
+								border: '1px solid black',
+								boxSizing: 'border-box',
+							}
+						}
+					)),
+				classNames: {
+					matrix: 'styled-routing-matrix',
+					row: 'styled-row',
+					header: 'styled-header',
+					rowHeaderCell: 'styled-row-header-cell',
+					columnHeaderCell: 'styled-column-header-cell',
+					cell: 'styled-cell',
+					crossAxisCell: 'styled-cross-axis-cell',
+				}
+			});
+	})
 
