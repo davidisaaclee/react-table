@@ -1,8 +1,8 @@
 {
-  "name": "@davidisaaclee/react-routing-matrix",
+  "name": "@davidisaaclee/react-table",
   "version": "1.0.0",
-  "main": "dist/RoutingMatrix.js",
-  "types": "dist/RoutingMatrix.d.ts",
+  "main": "dist/Table.js",
+  "types": "dist/Table.d.ts",
   "files": [
     "dist",
     "src"
@@ -10,7 +10,7 @@
   "scripts": {
 		"clean": "rimraf dist",
     "build": "tsc",
-    "preprocess": "npm run build",
+    "preprocess": "npm run clean && npm run build",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

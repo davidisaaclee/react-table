@@ -47,7 +47,7 @@ export const defaultClassNames = {
 
 const defaultRenderCell = () => null;
 
-interface OwnProps {
+export interface OwnProps {
 	// A list of row names. The length of this list determines the number of rows.
 	rows: Array<string>;
 
@@ -60,9 +60,9 @@ interface OwnProps {
 	renderCell?: (row: number, column: number) => React.ReactNode;
 }
 
-type Props = OwnProps & React.HTMLAttributes<HTMLTableElement>;
+export type Props = OwnProps & React.HTMLAttributes<HTMLTableElement>;
 
-export class RoutingMatrix extends React.Component<Props, any> {
+export class Table extends React.Component<Props, any> {
 
 	public render() {
 		const {
