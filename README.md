@@ -33,7 +33,7 @@ let data = {
 
 ## Install
 ```bash
-yarn add @davidisaaclee/table
+yarn add @davidisaaclee/react-table
 ```
 
 ## Develop
