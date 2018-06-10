@@ -1,6 +1,6 @@
 {
   "name": "@davidisaaclee/react-table",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "dist/Table.js",
   "types": "dist/Table.d.ts",
   "files": [
@@ -17,7 +17,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "React component for displaying a table element",
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.6",
     "@storybook/react": "^4.0.0-alpha.8",
