@@ -1,6 +1,6 @@
 {
   "name": "@davidisaaclee/react-table",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/Table.js",
   "types": "dist/Table.d.ts",
   "files": [
@@ -8,7 +8,7 @@
     "src"
   ],
   "scripts": {
-		"clean": "rimraf dist",
+    "clean": "rimraf dist",
     "build": "tsc",
     "prepare": "npm run clean && npm run build",
     "storybook": "start-storybook -p 9001 -c .storybook",
