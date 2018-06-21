@@ -2,7 +2,6 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Table, edgeLookup } from '../src/Table';
 import { action } from '@storybook/addon-actions';
-// import './index.css';
 
 const e = React.createElement;
 
@@ -26,7 +25,7 @@ storiesOf('Table', module)
 				columnCount: columns.length,
 				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
 				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
-				renderCell: edgeLookup(
+				renderCellContent: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
 					(value) => value ? 'x' : null)
 			})
@@ -46,7 +45,7 @@ storiesOf('Table', module)
 				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
 				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
 
-				renderCell: edgeLookup(
+				renderCellContent: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
 					(value) => e('span',
 						{
@@ -82,7 +81,7 @@ storiesOf('Table', module)
 				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
 				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
 
-				renderCell: edgeLookup(
+				renderCellContent: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
 					(value, rowIndex, columnIndex) => e('span',
 						{
@@ -125,7 +124,7 @@ storiesOf('Table', module)
 				),
 				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
 
-				renderCell: edgeLookup(
+				renderCellContent: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
 					(value, rowIndex, columnIndex) => e('span',
 						{
@@ -162,7 +161,7 @@ storiesOf('Table', module)
 				columnCount: columns.length,
 				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
 				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
-				renderCell: edgeLookup(
+				renderCellContent: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
 					(value) => value ? 'x' : null),
 				renderRowContainer: ({ rowIndex, children }: { rowIndex: number, children: React.ReactNode }) => (
