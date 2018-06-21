@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Table, edgeLookup } from '../src/Table';
 import { action } from '@storybook/addon-actions';
-import './index.css';
+// import './index.css';
 
 const e = React.createElement;
 
