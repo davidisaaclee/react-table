@@ -25,20 +25,9 @@ export function edgeLookup<T, EdgeValue>(
 	};
 };
 
-interface ClassNames {
-	matrix: string;
-}
-
-export const defaultClassNames = {
-	matrix: 'routing-matrix',
-};
-
 const defaultRenderCell = () => null;
 
 export interface OwnProps {
-	// Set this value to provide custom classnames for rendered HTML elements.
-	classNames?: ClassNames;
-
 	rowCount: number;
 	columnCount: number;
 
@@ -68,16 +57,12 @@ const defaultCellContainer: React.StatelessComponent<{ columnIndex: number, rowI
 export class Table extends React.Component<Props, any> {
 	public render() {
 		const {
-			rowCount, columnCount, classNames: _classNames,
+			rowCount, columnCount, 
 			renderCell: _renderCell, renderRowHeader, renderColumnHeader,
 			renderRowContainer: _renderRowContainer,
 			renderCellContainer: _renderCellContainer,
 			style, ...passedProps
 		} = this.props;
-
-		const classNames = _classNames == null
-			? defaultClassNames
-			: _classNames;
 
 		const renderCell = _renderCell == null
 			? defaultRenderCell
@@ -128,7 +113,6 @@ export class Table extends React.Component<Props, any> {
 
 		return e('table',
 			{
-				className: classNames.matrix,
 				style,
 				...passedProps
 			},

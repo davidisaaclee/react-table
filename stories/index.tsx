@@ -68,13 +68,6 @@ storiesOf('Table', module)
 							}
 						}
 					)),
-				classNames: {
-					matrix: 'styled-routing-matrix',
-					header: 'styled-header',
-					rowHeaderCell: 'styled-row-header-cell',
-					columnHeaderCell: 'styled-column-header-cell',
-					crossAxisCell: 'styled-cross-axis-cell',
-				}
 			});
 	})
 	.add('interactive cells', () => {
@@ -112,13 +105,6 @@ storiesOf('Table', module)
 							}
 						}
 					)),
-				classNames: {
-					matrix: 'styled-routing-matrix',
-					header: 'styled-header',
-					rowHeaderCell: 'styled-row-header-cell',
-					columnHeaderCell: 'styled-column-header-cell',
-					crossAxisCell: 'styled-cross-axis-cell',
-				}
 			});
 	})
 	.add('interactive headers', () => {
@@ -162,13 +148,6 @@ storiesOf('Table', module)
 							}
 						}
 					)),
-				classNames: {
-					matrix: 'styled-routing-matrix',
-					header: 'styled-header',
-					rowHeaderCell: 'styled-row-header-cell',
-					columnHeaderCell: 'styled-column-header-cell',
-					crossAxisCell: 'styled-cross-axis-cell',
-				}
 			});
 	})
 	.add('custom containers', () => {
