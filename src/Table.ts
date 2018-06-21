@@ -78,12 +78,12 @@ export class Table extends React.Component<Props, any> {
 		} = this.props;
 
 		const classNames = _classNames == null
-		? defaultClassNames
-		: _classNames;
+			? defaultClassNames
+			: _classNames;
 
 		const renderCell = _renderCell == null
-		? defaultRenderCell
-		: _renderCell;
+			? defaultRenderCell
+			: _renderCell;
 
 		const renderRowContainer = _renderRowContainer == null
 			? defaultRowContainer
@@ -132,27 +132,23 @@ export class Table extends React.Component<Props, any> {
 				style,
 				...passedProps
 			},
+			e('thead',
+				{},
+				e('tr',
+					{},
+					[
+						e('th',
+							{
+								key: 'cross-axis-cell',
+								className: classNames.crossAxisCell,
+							},
+							null),
+						...range(0, columnCount).map(renderColumnHeaderContainer)
+					]
+				)),
 			e('tbody',
 				{},
-				[
-					e('tr',
-						{
-							key: 'column-headers',
-						},
-						[
-							e('th',
-								{
-									key: 'cross-axis-cell',
-									className: classNames.crossAxisCell,
-								},
-								null),
-							...range(0, columnCount).map(renderColumnHeaderContainer)
-						]
-					),
-					...range(0, rowCount).map(renderRow)
-				]
-			)
-		);
+				range(0, rowCount).map(renderRow)));
 	}
 }
 
