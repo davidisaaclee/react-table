@@ -23,8 +23,8 @@ storiesOf('Table', module)
 			{
 				rowCount: rows.length,
 				columnCount: columns.length,
-				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
-				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
+				renderRowHeaderContent: (i: number) => defaultRenderHeader(rows, i),
+				renderColumnHeaderContent: (i: number) => defaultRenderHeader(columns, i),
 				renderCellContent: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
 					(value) => value ? 'x' : null)
@@ -42,8 +42,8 @@ storiesOf('Table', module)
 				rowCount: rows.length,
 				columnCount: columns.length,
 
-				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
-				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
+				renderRowHeaderContent: (i: number) => defaultRenderHeader(rows, i),
+				renderColumnHeaderContent: (i: number) => defaultRenderHeader(columns, i),
 
 				renderCellContent: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
@@ -78,8 +78,8 @@ storiesOf('Table', module)
 				rowCount: rows.length,
 				columnCount: columns.length,
 
-				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
-				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
+				renderRowHeaderContent: (i: number) => defaultRenderHeader(rows, i),
+				renderColumnHeaderContent: (i: number) => defaultRenderHeader(columns, i),
 
 				renderCellContent: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
@@ -115,14 +115,14 @@ storiesOf('Table', module)
 				rowCount: rows.length,
 				columnCount: columns.length,
 
-				renderRowHeader: (i: number) => (
+				renderRowHeaderContent: (i: number) => (
 					e('button',
 						{
 							onClick: action(`clicked row ${rows[i]}`),
 						},
 						rows[i])
 				),
-				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
+				renderColumnHeaderContent: (i: number) => defaultRenderHeader(columns, i),
 
 				renderCellContent: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
@@ -159,8 +159,8 @@ storiesOf('Table', module)
 			{
 				rowCount: rows.length,
 				columnCount: columns.length,
-				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
-				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
+				renderRowHeaderContent: (i: number) => defaultRenderHeader(rows, i),
+				renderColumnHeaderContent: (i: number) => defaultRenderHeader(columns, i),
 				renderCellContent: edgeLookup(
 					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
 					(value) => value ? 'x' : null),

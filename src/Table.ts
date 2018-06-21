@@ -31,8 +31,8 @@ export interface OwnProps {
 	rowCount: number;
 	columnCount: number;
 
-	renderRowHeader: (rowIndex: number) => React.ReactNode;
-	renderColumnHeader: (columnIndex: number) => React.ReactNode;
+	renderRowHeaderContent: (rowIndex: number) => React.ReactNode;
+	renderColumnHeaderContent: (columnIndex: number) => React.ReactNode;
 
 	renderCellContent?: (row: number, column: number) => React.ReactNode;
 
@@ -58,7 +58,8 @@ export class Table extends React.Component<Props, any> {
 	public render() {
 		const {
 			rowCount, columnCount, 
-			renderCellContent: _renderCellContent, renderRowHeader, renderColumnHeader,
+			renderCellContent: _renderCellContent,
+			renderRowHeaderContent, renderColumnHeaderContent,
 			renderRowContainer: _renderRowContainer,
 			renderCellContainer: _renderCellContainer,
 			style, ...passedProps
@@ -89,7 +90,7 @@ export class Table extends React.Component<Props, any> {
 							rowIndex,
 							columnIndex: -1
 						},
-						renderRowHeader(rowIndex)),
+						renderRowHeaderContent(rowIndex)),
 					range(0, columnCount).map(columnIndex =>
 						e(renderCellContainer,
 							{
@@ -108,7 +109,7 @@ export class Table extends React.Component<Props, any> {
 					rowIndex: -1,
 					columnIndex
 				},
-				renderColumnHeader(columnIndex));
+				renderColumnHeaderContent(columnIndex));
 		}
 
 		return e('table',
