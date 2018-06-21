@@ -1,6 +1,6 @@
 {
   "name": "@davidisaaclee/react-table",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "main": "dist/Table.js",
   "types": "dist/Table.d.ts",
   "files": [
