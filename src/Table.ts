@@ -27,18 +27,10 @@ export function edgeLookup<T, EdgeValue>(
 
 interface ClassNames {
 	matrix: string;
-	rowHeaderCell: string;
-	columnHeaderCell: string;
-	header: string;
-	crossAxisCell: string;
 }
 
 export const defaultClassNames = {
 	matrix: 'routing-matrix',
-	rowHeaderCell: 'row-header-cell',
-	columnHeaderCell: 'column-header-cell',
-	header: 'header',
-	crossAxisCell: 'cross-axis-cell',
 };
 
 const defaultRenderCell = () => null;
@@ -55,7 +47,10 @@ export interface OwnProps {
 
 	renderCell?: (row: number, column: number) => React.ReactNode;
 
+	// For header rows, `rowIndex` will be negative
 	renderRowContainer?: React.ComponentType<{ rowIndex: number }>;
+
+	// For header cells, `rowIndex` and/or `columnIndex` will be negative
 	renderCellContainer?: React.ComponentType<{ columnIndex: number, rowIndex: number }>;
 }
 
@@ -64,7 +59,10 @@ export type Props = OwnProps & React.HTMLAttributes<HTMLTableElement>;
 const defaultRowContainer: React.StatelessComponent<{ rowIndex: number }> =
 	({ rowIndex, children }) => e('tr', {}, children);
 const defaultCellContainer: React.StatelessComponent<{ columnIndex: number, rowIndex: number }> =
-	({ rowIndex, children }) => e('td', {}, children);
+	({ columnIndex, rowIndex, children }) => ((columnIndex === -1 || rowIndex === -1)
+		? e('th', {}, children)
+		: e('td', {}, children)
+	);
 
 
 export class Table extends React.Component<Props, any> {
@@ -100,10 +98,11 @@ export class Table extends React.Component<Props, any> {
 					rowIndex
 				},
 				[
-					e('th',
+					e(renderCellContainer,
 						{
 							key: 'row-header-' + rowIndex,
-							className: [classNames.header, classNames.rowHeaderCell].join(' '),
+							rowIndex,
+							columnIndex: -1
 						},
 						renderRowHeader(rowIndex)),
 					range(0, columnCount).map(columnIndex =>
@@ -118,12 +117,13 @@ export class Table extends React.Component<Props, any> {
 		}
 
 		function renderColumnHeaderContainer(columnIndex: number) {
-			return e('th',
+			return e(renderCellContainer,
 				{
 					key: 'col-header-' + columnIndex,
-					className: [classNames.header, classNames.columnHeaderCell].join(' '),
+					rowIndex: -1,
+					columnIndex
 				},
-				renderColumnHeader(columnIndex))
+				renderColumnHeader(columnIndex));
 		}
 
 		return e('table',
@@ -134,13 +134,14 @@ export class Table extends React.Component<Props, any> {
 			},
 			e('thead',
 				{},
-				e('tr',
-					{},
+				e(renderRowContainer,
+					{ rowIndex: -1 },
 					[
-						e('th',
-							{
+						e(renderCellContainer,
+							{ 
 								key: 'cross-axis-cell',
-								className: classNames.crossAxisCell,
+								rowIndex: -1,
+								columnIndex: -1
 							},
 							null),
 						...range(0, columnCount).map(renderColumnHeaderContainer)

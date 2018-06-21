@@ -190,20 +190,47 @@ storiesOf('Table', module)
 					e('tr', 
 						{
 							style: {
-								backgroundColor: 'green'
+								backgroundColor: rowIndex === -1 ? 'lightgreen' : 'green'
 							}
 						},
 						children)
 				),
-				renderCellContainer: ({ columnIndex, children }: { columnIndex: number, rowIndex: number, children: React.ReactNode }) => (
-					e('td', 
+				renderCellContainer: ({ columnIndex, rowIndex, children }: { columnIndex: number, rowIndex: number, children: React.ReactNode }) => {
+					if (rowIndex === -1 && columnIndex === -1) {
+						return e('th', 
+							{
+								style: {
+									backgroundColor: 'white',
+								}
+							},
+							children);
+					}
+					if (rowIndex === -1) {
+						return e('th', 
+							{
+								style: {
+									backgroundColor: 'lightblue',
+								}
+							},
+							children);
+					}
+					if (columnIndex === -1) {
+						return e('th', 
+							{
+								style: {
+									backgroundColor: 'lightpink',
+								}
+							},
+							children);
+					}
+					return e('td', 
 						{
 							style: {
 								backgroundColor: columnIndex % 2 === 0 ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0)'
 							}
 						},
-						children)
-				),
+						children);
+				},
 			})
 	})
 
