@@ -70,11 +70,9 @@ storiesOf('Table', module)
 					)),
 				classNames: {
 					matrix: 'styled-routing-matrix',
-					row: 'styled-row',
 					header: 'styled-header',
 					rowHeaderCell: 'styled-row-header-cell',
 					columnHeaderCell: 'styled-column-header-cell',
-					cell: 'styled-cell',
 					crossAxisCell: 'styled-cross-axis-cell',
 				}
 			});
@@ -116,11 +114,9 @@ storiesOf('Table', module)
 					)),
 				classNames: {
 					matrix: 'styled-routing-matrix',
-					row: 'styled-row',
 					header: 'styled-header',
 					rowHeaderCell: 'styled-row-header-cell',
 					columnHeaderCell: 'styled-column-header-cell',
-					cell: 'styled-cell',
 					crossAxisCell: 'styled-cross-axis-cell',
 				}
 			});
@@ -168,13 +164,46 @@ storiesOf('Table', module)
 					)),
 				classNames: {
 					matrix: 'styled-routing-matrix',
-					row: 'styled-row',
 					header: 'styled-header',
 					rowHeaderCell: 'styled-row-header-cell',
 					columnHeaderCell: 'styled-column-header-cell',
-					cell: 'styled-cell',
 					crossAxisCell: 'styled-cross-axis-cell',
 				}
 			});
+	})
+	.add('custom containers', () => {
+		const rows =
+			['oscillator', 'delay', 'low-pass filter'];
+		const columns =
+			['osc output', 'something else',
+				'something else', 'something else'];
+		return e(Table,
+			{
+				rowCount: rows.length,
+				columnCount: columns.length,
+				renderRowHeader: (i: number) => defaultRenderHeader(rows, i),
+				renderColumnHeader: (i: number) => defaultRenderHeader(columns, i),
+				renderCell: edgeLookup(
+					[[0, 0, true], [0, 1, true], [2, 0, true], [2, 3, true]],
+					(value) => value ? 'x' : null),
+				renderRowContainer: ({ rowIndex, children }: { rowIndex: number, children: React.ReactNode }) => (
+					e('tr', 
+						{
+							style: {
+								backgroundColor: 'green'
+							}
+						},
+						children)
+				),
+				renderCellContainer: ({ columnIndex, children }: { columnIndex: number, rowIndex: number, children: React.ReactNode }) => (
+					e('td', 
+						{
+							style: {
+								backgroundColor: columnIndex % 2 === 0 ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0)'
+							}
+						},
+						children)
+				),
+			})
 	})
 
